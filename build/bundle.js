@@ -967,6 +967,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(18);
 
+var _Item = __webpack_require__(32);
+
+var _Item2 = _interopRequireDefault(_Item);
+
+var _InventoryItem = __webpack_require__(33);
+
+var _InventoryItem2 = _interopRequireDefault(_InventoryItem);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -976,26 +984,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var App = function (_React$Component) {
-  _inherits(App, _React$Component);
+    _inherits(App, _React$Component);
 
-  function App() {
-    _classCallCheck(this, App);
+    function App() {
+        _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-  }
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'p',
-        null,
-        ' Hello React!'
-      );
+        _this.items = [];
+
+        _this.items.push(new _Item2.default(1, "Palmolive Hand Soap", 4, 6));
+        _this.items.push(new _Item2.default(2, "Ariel washing stuff", 4, 6));
+        return _this;
     }
-  }]);
 
-  return App;
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            var result = [];
+
+            this.items.forEach(function (item) {
+                result.push(_react2.default.createElement(_InventoryItem2.default, { item: item, key: item.id }));
+            });
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                result
+            );
+        }
+    }]);
+
+    return App;
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('app'));
@@ -21198,6 +21218,128 @@ module.exports = function() {
   return ReactPropTypes;
 };
 
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Item = function Item(id, title, quantity, max) {
+    _classCallCheck(this, Item);
+
+    this.id = id;
+    this.title = title;
+    this.quantity = quantity;
+    this.max = max;
+};
+
+exports.default = Item;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InventoryItem = function (_React$Component) {
+    _inherits(InventoryItem, _React$Component);
+
+    function InventoryItem(props) {
+        _classCallCheck(this, InventoryItem);
+
+        return _possibleConstructorReturn(this, (InventoryItem.__proto__ || Object.getPrototypeOf(InventoryItem)).call(this, props));
+    }
+
+    _createClass(InventoryItem, [{
+        key: 'render',
+        value: function render() {
+            var item = this.props.item;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'item' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'item-title' },
+                    item.title
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'item-text' },
+                    'Stock:'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'inc-dec-button' },
+                    '-'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'item-number' },
+                    item.quantity
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'inc-dec-button' },
+                    '+'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'item-text' },
+                    'Max:'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'inc-dec-button' },
+                    '-'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'item-number item-max' },
+                    item.max
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'inc-dec-button' },
+                    '+'
+                )
+            );
+        }
+    }]);
+
+    return InventoryItem;
+}(_react2.default.Component);
+
+exports.default = InventoryItem;
 
 /***/ })
 /******/ ]);
