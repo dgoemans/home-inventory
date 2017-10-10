@@ -1,14 +1,16 @@
+import * as Keys from "../config/keys.js"
+
 export default class FirebaseHelper
 {
     constructor()
     {
         var config = {
-            apiKey: "AIzaSyB9D9Td4XJuegtLzoKIdmlzoyunHnHSGHk",
-            authDomain: "home-inventory-26d6e.firebaseapp.com",
-            databaseURL: "https://home-inventory-26d6e.firebaseio.com",
-            projectId: "home-inventory-26d6e",
-            storageBucket: "home-inventory-26d6e.appspot.com",
-            messagingSenderId: "890481878875"
+            apiKey: Keys.apiKey,
+            authDomain: Keys.projectId + ".firebaseapp.com",
+            databaseURL: "https://" + Keys.projectId + ".firebaseio.com",
+            projectId: Keys.projectId,
+            storageBucket: Keys.projectId + ".appspot.com",
+            messagingSenderId: Keys.messagingSenderId
           };
           firebase.initializeApp(config);
     }
