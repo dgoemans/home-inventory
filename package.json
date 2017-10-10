@@ -21,6 +21,7 @@
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
     "fetch-polyfill": "^0.8.2",
+    "firebase": "^4.5.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "webpack": "^3.6.0"

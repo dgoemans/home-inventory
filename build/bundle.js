@@ -1025,6 +1025,10 @@ var _FloatingActionButton = __webpack_require__(35);
 
 var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 
+var _FirebaseHelper = __webpack_require__(36);
+
+var _FirebaseHelper2 = _interopRequireDefault(_FirebaseHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1042,26 +1046,72 @@ var App = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
         _this.state = {
-            items: []
+            items: [],
+            loggedIn: false
         };
+
+        _this.firebaseHelper = new _FirebaseHelper2.default();
+
+        if (!_this.firebaseHelper.isSignedIn()) {
+            //this.login();
+        } else {
+            _this.setState({
+                loggedIn: true
+            });
+        }
         return _this;
     }
 
     _createClass(App, [{
+        key: 'loginResult',
+        value: function loginResult(result) {
+            console.log(result);
+            if (result.credential) {
+                this.setState({
+                    loggedIn: true
+                });
+
+                this.firebaseHelper.load();
+            } else {
+                this.setState({
+                    loggedIn: false
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var result = [];
+            if (this.firebaseHelper.isSignedIn()) {
+                var result = [];
 
-            this.state.items.forEach(function (item) {
-                result.push(_react2.default.createElement(_InventoryItem2.default, { item: item, key: item.id }));
+                this.state.items.forEach(function (item) {
+                    result.push(_react2.default.createElement(_InventoryItem2.default, { item: item, key: item.id }));
+                });
+
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    result,
+                    _react2.default.createElement(_FloatingActionButton2.default, { onpressed: this.add.bind(this) })
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'button', onClick: this.login.bind(this) },
+                    'LOGIN'
+                );
+            }
+        }
+    }, {
+        key: 'login',
+        value: function login() {
+            var _this2 = this;
+
+            this.firebaseHelper.login().then(function (result) {
+                return _this2.loginResult(result);
+            }).catch(function (error) {
+                return console.log(error);
             });
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                result,
-                _react2.default.createElement(_FloatingActionButton2.default, { onpressed: this.add.bind(this) })
-            );
         }
     }, {
         key: 'add',
@@ -1073,6 +1123,8 @@ var App = function (_React$Component) {
             this.setState({
                 items: items
             });
+
+            this.firebaseHelper.save(items);
         }
     }]);
 
@@ -21526,6 +21578,75 @@ var FloatingActionButton = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = FloatingActionButton;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FirebaseHelper = function () {
+    function FirebaseHelper() {
+        _classCallCheck(this, FirebaseHelper);
+
+        var config = {
+            apiKey: "AIzaSyB9D9Td4XJuegtLzoKIdmlzoyunHnHSGHk",
+            authDomain: "home-inventory-26d6e.firebaseapp.com",
+            databaseURL: "https://home-inventory-26d6e.firebaseio.com",
+            projectId: "home-inventory-26d6e",
+            storageBucket: "home-inventory-26d6e.appspot.com",
+            messagingSenderId: "890481878875"
+        };
+        firebase.initializeApp(config);
+    }
+
+    _createClass(FirebaseHelper, [{
+        key: "isSignedIn",
+        value: function isSignedIn() {
+            return !!firebase.auth().currentUser;
+        }
+    }, {
+        key: "login",
+        value: function login() {
+            var database = firebase.database();
+
+            var provider = new firebase.auth.FacebookAuthProvider();
+
+            provider.setCustomParameters({
+                'display': 'popup'
+            });
+
+            return firebase.auth().signInWithPopup(provider);
+        }
+    }, {
+        key: "save",
+        value: function save(data) {
+            firebase.database().ref('users/' + this.userId).set({ items: data });
+        }
+    }, {
+        key: "load",
+        value: function load() {
+            var userId = firebase.auth().currentUser.uid;
+
+            return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+                console.log(snapshot.val());
+            });
+        }
+    }]);
+
+    return FirebaseHelper;
+}();
+
+exports.default = FirebaseHelper;
 
 /***/ })
 /******/ ]);

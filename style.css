@@ -1,6 +1,7 @@
 body
 {
     margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .item
@@ -11,7 +12,6 @@ body
     flex-wrap: wrap;
     padding: 15px;
     margin: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #E6E6E6;
     border-radius: 25px;
 }
@@ -97,4 +97,17 @@ body
     bottom: 0em;
     right: 0em;
     box-shadow: 0 1px 5px #333333;
+}
+
+.button
+{
+    width: 120px;
+    padding: 0.5em;
+    height: 1.5em;
+    text-align: center;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    margin: auto;
+    margin-top: 50px;
+    background-color: #55ff55;
 }
