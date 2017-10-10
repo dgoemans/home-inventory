@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     margin: 5px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #E6E6E6;
@@ -14,6 +14,8 @@
 .item-title
 {
     width: 300px;
+    font-size: 1.5em;
+    padding-left: 35px;
 }
 
 .item-text
@@ -23,11 +25,22 @@
     text-align: right;
 }
 
-.item-number
+.number
 {
     width: 30px;
     text-align: center;
     font-size: 1.4em;
+}
+
+.number-counter
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 5px;
+    border-radius: 25px;
+    box-shadow: inset 0 1px 8px #777777;
 }
 
 .item-max
@@ -43,6 +56,10 @@
     border-radius: 50%;
     background-color: #cccccc;
     text-align: center;
+    font-weight: bold;
     margin-left: 0.5em;
     margin-right: 0.5em;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 1px 5px #333333;
 }
