@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import Item from './models/Item';
 import InventoryItem from './components/InventoryItem';
+import FloatingActionButton from './components/FloatingActionButton';
 
 class App extends React.Component 
 {
@@ -9,21 +10,33 @@ class App extends React.Component
     {
         super();
 
-        this.items = [];
-
-        this.items.push(new Item(1, "Palmolive Hand Soap", 4, 6));
-        this.items.push(new Item(2, "Ariel washing stuff", 4, 6));
+        this.state = {
+            items: []
+        }
     }
 
     render () 
     {
         let result = [];
 
-        this.items.forEach(item => {
+        this.state.items.forEach(item => {
             result.push(<InventoryItem item={item} key={item.id} />)
         });
 
-        return <div>{result}</div>;
+        return (<div>{result}
+                <FloatingActionButton onpressed={this.add.bind(this)} />
+                </div>);
+    }
+
+    add()
+    {
+        let items = this.state.items;
+
+        items.push(new Item(items.length, "Tap here to edit", 0, 0));
+
+        this.setState({
+            items: items
+        });
     }
 }
 

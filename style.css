@@ -1,14 +1,19 @@
+body
+{
+    margin: 0px;
+}
 
 .item
 {
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     padding: 15px;
     margin: 5px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #E6E6E6;
-    border-radius: 30px;
+    border-radius: 25px;
 }
 
 .item-title
@@ -16,11 +21,21 @@
     width: 300px;
     font-size: 1.5em;
     padding-left: 35px;
+    padding-bottom: 10px;
 }
+
+.item-title-edit
+{
+    width: 265px;
+    font-size: 1.5em;
+    margin-left: 35px;
+    padding: 5px;
+}
+
 
 .item-text
 {
-    width: 100px;
+    width: 120px;
     padding-right: 10px;
     text-align: right;
 }
@@ -41,6 +56,7 @@
     padding: 5px;
     border-radius: 25px;
     box-shadow: inset 0 1px 8px #777777;
+    margin: 5px;
 }
 
 .item-max
@@ -61,5 +77,24 @@
     margin-right: 0.5em;
     cursor: pointer;
     user-select: none;
+    box-shadow: 0 1px 5px #333333;
+}
+
+.floating-action-button
+{
+    position: fixed;
+    width: 2.5em;
+    height: 2.5em;
+    font-size: 2em;
+    line-height: 2.5em;
+    border-radius: 50%;
+    background-color: #5B9CFF;
+    text-align: center;
+    font-weight: bold;
+    margin: 0.5em;
+    cursor: pointer;
+    user-select: none;
+    bottom: 0em;
+    right: 0em;
     box-shadow: 0 1px 5px #333333;
 }

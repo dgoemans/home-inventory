@@ -9,7 +9,8 @@ class InventoryItem extends React.Component
         super(props);
 
         this.state = {
-            item: props.item
+            item: props.item,
+            edit: false
         };
     }
     
@@ -17,8 +18,19 @@ class InventoryItem extends React.Component
     {
         let item = this.state.item;
 
+        let title = null;
+
+        if(this.state.edit)
+        {
+            title = <input className="item-title-edit" onChange={this.nameChange.bind(this)} onBlur={this.toggleEdit.bind(this)} />;
+        }
+        else
+        {
+            title = <div className="item-title" onClick={this.toggleEdit.bind(this)}>{item.title}</div>;
+        }
+
         return (<div className="item">
-            <div className="item-title">{item.title}</div>
+            {title}
             <div className="item-text">Stock:</div>
             <NumberCounter amount={item.quantity} onchange={this.changeQuantity.bind(this)} />
             <div className="item-text">Max:</div>
@@ -42,6 +54,28 @@ class InventoryItem extends React.Component
         item.max += amount;
 
         this.setState({ item: item });
+    }
+
+    nameChange(event)
+    {
+        let newText = event.target.value;
+
+        let item = this.state.item;
+        
+        item.title = newText;
+
+        this.setState({
+            item: item
+        });
+    }
+
+    toggleEdit()
+    {
+        let edit = !this.state.edit;
+
+        this.setState({
+            edit: edit
+        });
     }
 }
 
