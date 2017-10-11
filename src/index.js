@@ -18,34 +18,42 @@ class App extends React.Component
 
         this.firebaseHelper = new FirebaseHelper();
 
-        if(!this.firebaseHelper.isSignedIn())
-        {
-            //this.login();
-        }
-        else
-        {
+        this.firebaseHelper.authenticate().then(() => {
+            this.loggedIn();
+        }).catch(() => {
+            this.loggedOut();
+        });
+    }
+
+    loggedIn()
+    {
+        this.setState({
+            loggedIn: true
+        });
+
+        this.firebaseHelper.load().then((result) => {
             this.setState({
-                loggedIn: true
+                items: result
             });
-        }
+        });
+    }
+
+    loggedOut()
+    {
+        this.setState({
+            loggedIn: false
+        });
     }
 
     loginResult(result)
     {
-        console.log(result);
         if(result.credential)
         {
-            this.setState({
-                loggedIn: true
-            });
-
-            this.firebaseHelper.load();
+            this.loggedIn();
         }
         else
         {
-            this.setState({
-                loggedIn: false
-            });
+            this.loggedOut();
         }
     }
 
@@ -56,7 +64,7 @@ class App extends React.Component
             let result = [];
             
             this.state.items.forEach(item => {
-                result.push(<InventoryItem item={item} key={item.id} />)
+                result.push(<InventoryItem item={item} key={item.id} onchange={this.save.bind(this)} />)
             });
     
             return (<div>{result}
@@ -85,8 +93,11 @@ class App extends React.Component
         this.setState({
             items: items
         });
+    }
 
-        this.firebaseHelper.save(items);
+    save()
+    {
+        this.firebaseHelper.save(this.state.items);
     }
 }
 

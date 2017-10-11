@@ -12,8 +12,26 @@ export default class FirebaseHelper
             storageBucket: Keys.projectId + ".appspot.com",
             messagingSenderId: Keys.messagingSenderId
           };
+
           firebase.initializeApp(config);
     }
+
+    authenticate()
+    {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) 
+                {
+                  resolve();
+                } 
+                else 
+                {
+                  reject();
+                }
+              });
+        });
+    }
+    
 
     isSignedIn()
     {
@@ -35,15 +53,19 @@ export default class FirebaseHelper
 
     save(data)
     {
-        firebase.database().ref('users/' + this.userId).set({items: data});
+        let userId = firebase.auth().currentUser.uid;
+
+        firebase.database().ref(Keys.databaseId).set({items: data});
     }
 
     load()
     {
         let userId = firebase.auth().currentUser.uid;
 
-        return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-            console.log(snapshot.val());
+        return firebase.database().ref(Keys.databaseId).once('value').then(function(snapshot) {
+            return new Promise((resolve, reject) => {
+                snapshot.val() && snapshot.val().items && resolve(snapshot.val().items);
+            });
         });
     }
 }

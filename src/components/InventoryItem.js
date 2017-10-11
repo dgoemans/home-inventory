@@ -45,6 +45,8 @@ class InventoryItem extends React.Component
         item.quantity += amount;
 
         this.setState({ item: item });
+
+        this.props.onchange();
     }
 
     changeMax (amount)
@@ -54,6 +56,8 @@ class InventoryItem extends React.Component
         item.max += amount;
 
         this.setState({ item: item });
+
+        this.props.onchange();
     }
 
     nameChange(event)
@@ -76,6 +80,11 @@ class InventoryItem extends React.Component
         this.setState({
             edit: edit
         });
+
+        if(!edit)
+        {
+            this.props.onchange();
+        }
     }
 }
 
