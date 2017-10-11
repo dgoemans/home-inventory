@@ -9,11 +9,11 @@ body
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     padding: 15px;
-    margin: 5px;
-    background-color: #E6E6E6;
-    border-radius: 25px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
 }
 
 .item-title
@@ -21,12 +21,14 @@ body
     width: 300px;
     font-size: 1.5em;
     padding-left: 35px;
+    padding-right: 35px;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 .item-title-edit
 {
-    width: 265px;
+    width: 300px;
     font-size: 1.5em;
     margin-left: 35px;
     padding: 5px;
@@ -35,9 +37,13 @@ body
 
 .item-text
 {
-    width: 120px;
-    padding-right: 10px;
-    text-align: right;
+    width: 130px;
+    text-align: center;
+}
+
+.counter-root
+{
+    margin: 10px;
 }
 
 .number
@@ -55,7 +61,7 @@ body
     background-color: #F5F5F5;
     padding: 5px;
     border-radius: 25px;
-    box-shadow: inset 0 1px 8px #777777;
+    box-shadow: inset 0 1px 3px #777777;
     margin: 5px;
 }
 
@@ -69,6 +75,8 @@ body
     flex: 0 0 auto;
     width: 1.5em;
     height: 1.5em;
+    font-size: 1.0em;
+    line-height: 1.5em;
     border-radius: 50%;
     background-color: #cccccc;
     text-align: center;
@@ -77,21 +85,21 @@ body
     margin-right: 0.5em;
     cursor: pointer;
     user-select: none;
-    box-shadow: 0 1px 5px #333333;
+    box-shadow: 0 1px 3px #333333;
 }
 
 .floating-action-button
 {
     position: fixed;
-    width: 2.5em;
-    height: 2.5em;
-    font-size: 2em;
-    line-height: 2.5em;
+    width: 2.0em;
+    height: 2.0em;
+    font-size: 2.0em;
+    line-height: 2.0em;
     border-radius: 50%;
     background-color: #5B9CFF;
     text-align: center;
     font-weight: bold;
-    margin: 0.5em;
+    margin: 0.3em;
     cursor: pointer;
     user-select: none;
     bottom: 0em;

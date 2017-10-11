@@ -22,7 +22,7 @@ class InventoryItem extends React.Component
 
         if(this.state.edit)
         {
-            title = <input className="item-title-edit" onChange={this.nameChange.bind(this)} onBlur={this.toggleEdit.bind(this)} />;
+            title = <input className="item-title-edit" onChange={this.nameChange.bind(this)} onBlur={this.toggleEdit.bind(this)} autoFocus />;
         }
         else
         {
@@ -31,10 +31,14 @@ class InventoryItem extends React.Component
 
         return (<div className="item">
             {title}
-            <div className="item-text">Stock:</div>
-            <NumberCounter amount={item.quantity} onchange={this.changeQuantity.bind(this)} />
-            <div className="item-text">Max:</div>
-            <NumberCounter amount={item.max} onchange={this.changeMax.bind(this)} />
+            <div className="counter-root">
+                <div className="item-text">Stock:</div>
+                <NumberCounter amount={item.quantity} onchange={this.changeQuantity.bind(this)} />
+            </div>
+            <div className="counter-root">
+                <div className="item-text">Max:</div>
+                <NumberCounter amount={item.max} onchange={this.changeMax.bind(this)} />
+            </div>
         </div>);
     }
 
