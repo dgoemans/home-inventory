@@ -67,7 +67,7 @@ class App extends React.Component
                 result.push(<InventoryItem item={item} key={item.id} onchange={this.save.bind(this)} />)
             });
     
-            return (<div>{result}
+            return (<div className="container">{result}
                     <FloatingActionButton onpressed={this.add.bind(this)} />
                     </div>);            
         }

@@ -2,6 +2,16 @@ body
 {
     margin: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FDFAFA;
+}
+
+.container
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .item
@@ -11,27 +21,29 @@ body
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 15px;
-    margin-bottom: 5px;
-    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 5px;
+    background-color: #FDFDFD;
+    box-shadow: 0 1px 3px #777777;
+    max-width: 480px;
 }
 
 .item-title
 {
-    width: 300px;
+    width: 360px;
     font-size: 1.5em;
-    padding-left: 35px;
-    padding-right: 35px;
     padding-bottom: 10px;
+    padding-top: 10px;
     text-align: center;
 }
 
 .item-title-edit
 {
-    width: 300px;
+    width: 360px;
     font-size: 1.5em;
-    margin-left: 35px;
     padding: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 
