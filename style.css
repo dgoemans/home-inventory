@@ -1,7 +1,7 @@
 body
 {
     margin: 0px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #FDFAFA;
 }
 
@@ -77,6 +77,16 @@ body
     margin: 5px;
 }
 
+.inc
+{
+    background-color: #DAFADA;
+}
+
+.dec
+{
+    background-color: #FADADA;
+}
+
 .item-max
 {
     color: #ff9999;
@@ -90,7 +100,6 @@ body
     font-size: 1.0em;
     line-height: 1.5em;
     border-radius: 50%;
-    background-color: #cccccc;
     text-align: center;
     font-weight: bold;
     margin-left: 0.5em;

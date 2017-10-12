@@ -13,9 +13,9 @@ class NumberCounter extends React.Component
         let item = this.props.item;
 
         return (<div className="number-counter">
-            <div className="inc-dec-button" onClick={this.decrement.bind(this)}>-</div>
+            <div className="inc-dec-button dec" onClick={this.decrement.bind(this)}>-</div>
             <div className="number">{this.props.amount}</div>
-            <div className="inc-dec-button" onClick={this.increment.bind(this)}>+</div>
+            <div className="inc-dec-button inc" onClick={this.increment.bind(this)}>+</div>
         </div>);
     }
 
