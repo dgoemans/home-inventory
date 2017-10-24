@@ -20,18 +20,38 @@ export default class FirebaseHelper
     {
         return new Promise((resolve, reject) => {
             firebase.auth().onAuthStateChanged(function(user) {
-                if (user) 
-                {
-                  resolve();
-                } 
-                else 
-                {
-                  reject();
-                }
-              });
+                this.allowed(user).then(() => {
+                    resolve();  
+                }).catch((error) => {
+                    reject(error);
+                });
+            }.bind(this));
         });
     }
-    
+
+    allowed(user)
+    {
+        return new Promise((resolve, reject) => {
+            if (user) 
+            {
+                firebase.database().ref(Keys.databaseId).once('value').then(function(snapshot) {
+                    if(snapshot.val() && snapshot.val().users && snapshot.val().users.indexOf(user.email) !== -1)
+                    {
+                        resolve();
+                    } 
+                    else
+                    {
+                        reject({code: 400, message: "User not allowed"});
+                    }
+                });
+            } 
+            else 
+            {
+                reject({code: 200, message: "Failed to authenticate"});
+            }
+            
+        });
+    }
 
     isSignedIn()
     {
@@ -48,7 +68,20 @@ export default class FirebaseHelper
             'display': 'popup'
           });
 
-        return firebase.auth().signInWithPopup(provider);
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithPopup(provider).then((data) => 
+            {
+                this.allowed(data.user).then(() => {
+                    resolve();  
+                }).catch((error) => {
+                    reject(error);
+                });
+
+            }).catch((error) => 
+            {
+                reject({code: 200, message: "Failed to login"});
+            });
+        });
     }
 
     save(data)

@@ -130,13 +130,13 @@ body
 
 .button
 {
-    width: 120px;
-    padding: 0.5em;
-    height: 1.5em;
+    width: 280px;
+    height: 45px;
     text-align: center;
-    line-height: 1.5em;
-    font-size: 1.5em;
     margin: auto;
     margin-top: 50px;
-    background-color: #55ff55;
+    /*color: #F5F5F5;
+    background-color: rgb(31, 63, 167);*/
+    background: url("img/continue.png") no-repeat center;
+    background-size: cover;
 }

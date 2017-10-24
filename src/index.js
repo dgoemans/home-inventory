@@ -13,15 +13,17 @@ class App extends React.Component
 
         this.state = {
             items: [],
-            loggedIn: false
+            loggedIn: false,
+            error: null,
+            code: null
         }
 
         this.firebaseHelper = new FirebaseHelper();
 
         this.firebaseHelper.authenticate().then(() => {
             this.loggedIn();
-        }).catch(() => {
-            this.loggedOut();
+        }).catch((error) => {
+            this.loggedOut(error);
         });
     }
 
@@ -38,23 +40,15 @@ class App extends React.Component
         });
     }
 
-    loggedOut()
+    loggedOut(error)
     {
-        this.setState({
-            loggedIn: false
-        });
-    }
+        console.error(error);
 
-    loginResult(result)
-    {
-        if(result.credential)
-        {
-            this.loggedIn();
-        }
-        else
-        {
-            this.loggedOut();
-        }
+        this.setState({
+            loggedIn: false,
+            error: error.message,
+            code: error.code
+        });
     }
 
     render () 
@@ -73,15 +67,15 @@ class App extends React.Component
         }
         else
         {
-            return (<div className="button" onClick={this.login.bind(this)}>LOGIN</div>);
+            return (<div className="button" onClick={this.login.bind(this)}></div>);
         }
     }
 
     login()
     {
         this.firebaseHelper.login()
-            .then((result) => this.loginResult(result))
-            .catch((error) => console.log(error));
+            .then((result) => this.loggedIn())
+            .catch((error) => this.loggedOut(error));
     }
 
     add()
